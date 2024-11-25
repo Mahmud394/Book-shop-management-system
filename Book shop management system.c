@@ -90,23 +90,29 @@ void addBook()
     getchar(); // Clear newline buffer
     fgets(newBook.title, sizeof(newBook.title), stdin);
     newBook.title[strcspn(newBook.title, "\n")] = 0; // Remove newline
+
     printf("Enter author name: ");
     fgets(newBook.author, sizeof(newBook.author), stdin);
     newBook.author[strcspn(newBook.author, "\n")] = 0;
+
     printf("Enter language: ");
     fgets(newBook.language, sizeof(newBook.language), stdin);
     newBook.language[strcspn(newBook.language, "\n")] = 0;
+
     printf("Enter category: ");
     fgets(newBook.category, sizeof(newBook.category), stdin);
     newBook.category[strcspn(newBook.category, "\n")] = 0;
+
     printf("Enter buy price: ");
     scanf("%f", &newBook.buyPrice);
+
     printf("Sell price: ");
     scanf("%f",&newBook.sellPrice);
+
     printf("Enter stock quantity: ");
     scanf("%d", &newBook.stockQuantity);
 
-    //newBook.sellPrice = newBook.buyPrice + (); // 20% markup
+    
     books[bookCount++] = newBook;
     printf("Book added successfully!\n");
 }
@@ -116,7 +122,7 @@ void searchBooks()
  {
     char query[100];
     printf("Enter title, author, or category to search: ");
-    getchar(); // Clear newline buffer
+    getchar(); 
     fgets(query, sizeof(query), stdin);
     query[strcspn(query, "\n")] = 0;
 
@@ -202,9 +208,11 @@ void updateBooks()
     printf("Book not found!\n");
 }
 
-// Function to track sales
+//Function to track sales
 void salesTrack()
  {
     printf("Total profit: %.2f\n", totalProfit);
     
 }
+
+
