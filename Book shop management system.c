@@ -27,7 +27,8 @@ void sellBooks();
 void updateBooks();
 void salesTrack();
 void deleteBook(); 
-
+void loadBooksFromFile();
+void saveBooksToFile();
 // Main function
 int main()
 {
@@ -39,7 +40,7 @@ int main()
         printf("Invalid login! Exiting program...\n");
         return 0;
     }
-
+loadBooksFromFile(); // Load books from file on startup
     while (1)
     {
         printf("\n==== Main Menu ====\n");
@@ -49,7 +50,7 @@ int main()
         printf("4. Sell Books\n");
         printf("5. Update Books\n");
         printf("6. Sales Track\n");
-        printf("7. Delete Book\n"); // New option
+        printf("7. Delete Book\n"); 
         printf("8. Log Out\n");
         printf("Enter your choice: ");
         scanf("%d", &choice);
@@ -76,14 +77,69 @@ int main()
             break;
         case 7:
             deleteBook();
-            break; // Calling deleteBook function
+            break; 
         case 8:
             printf("Logging out...\n");
+            saveBooksToFile(); // Save books to file on exit
             return 0;
         default:
             printf("Invalid choice! Try again.\n");
         }
     }
+}
+
+// Function to load books from a file
+void loadBooksFromFile()
+{
+    FILE *file = fopen("books.txt", "r");
+    if (file == NULL)
+    {
+        printf("No existing data found. Starting fresh.\n");
+        return;
+    }
+    
+    while (fscanf(file, "%s,%s,%s,%s,%f,%f,%d\n",
+                  books[bookCount].title,
+                  books[bookCount].author,
+                  books[bookCount].language,
+                  books[bookCount].category,
+                  &books[bookCount].buyPrice,
+                  &books[bookCount].sellPrice,
+                  &books[bookCount].stockQuantity) != EOF)
+     {
+    
+    
+        bookCount++;
+    }
+    fclose(file);
+    printf("Loaded %d books from file.\n", bookCount);
+}
+
+// Function to save books to a file
+void saveBooksToFile()
+{
+    FILE *file = fopen("books.txt", "w");
+    if (file == NULL)
+    {
+        printf("Error saving data to file!\n");
+        return;
+    }
+    for (int i = 0; i < bookCount; i++)
+    {
+        
+        fprintf(file,"Title: %s\n",books[i].title);
+        fprintf(file,"Author: %s\n", books[i].author);
+        fprintf(file,"language: %s\n",books[i].language);
+        fprintf(file,"Category: %s\n",books[i].category);
+        fprintf(file,"BuyPrice: %.2f\n",books[i].buyPrice);
+        fprintf(file,"sellPrice: %.2f\n",books[i].sellPrice);
+        fprintf(file,"stockQuantity: %d\n",books[i].stockQuantity);
+        
+        
+                
+    }
+    fclose(file);
+    printf("Data saved successfully.\n");
 }
 
 // Function to perform login
@@ -108,9 +164,9 @@ void addBook()
     }
     Book newBook;
     printf("Enter book title: ");
-    getchar(); // Clear newline buffer
+    getchar(); 
     fgets(newBook.title, sizeof(newBook.title), stdin);
-    newBook.title[strcspn(newBook.title, "\n")] = 0; // Remove newline
+    newBook.title[strcspn(newBook.title, "\n")] = 0; 
 
     printf("Enter author name: ");
     fgets(newBook.author, sizeof(newBook.author), stdin);
@@ -135,6 +191,7 @@ void addBook()
 
     books[bookCount++] = newBook;
     printf("Book added successfully!\n");
+      saveBooksToFile(); 
 }
 
 // Function to search for books
@@ -142,7 +199,7 @@ void searchBooks()
 {
     char query[100];
     printf("Enter title, author, or category to search: ");
-    getchar(); // Clear newline buffer
+    getchar(); 
     fgets(query, sizeof(query), stdin);
     query[strcspn(query, "\n")] = 0;
 
@@ -183,7 +240,7 @@ void sellBooks()
     char title[100];
     int quantity;
     printf("Enter book title to sell: ");
-    getchar(); // Clear newline buffer
+    getchar(); 
     fgets(title, sizeof(title), stdin);
     title[strcspn(title, "\n")] = 0;
 
@@ -202,6 +259,7 @@ void sellBooks()
             float totalPrice = quantity * books[i].sellPrice;
             totalProfit += totalPrice - (quantity * books[i].buyPrice);
             printf("Sold %d copies of %s for %.2f\n", quantity, books[i].title, totalPrice);
+             saveBooksToFile();
             return;
         }
     }
@@ -226,6 +284,7 @@ void updateBooks()
             scanf("%d", &newQuantity);
             books[i].stockQuantity = newQuantity;
             printf("Updated stock quantity for %s to %d\n", books[i].title, newQuantity);
+             saveBooksToFile();
             return;
         }
     }
@@ -258,6 +317,7 @@ void deleteBook()
             }
             bookCount--;
             printf("Book '%s' deleted successfully!\n", title);
+             saveBooksToFile();
             return;
         }
     }
