@@ -3,7 +3,7 @@
 
 // Structure to hold book details
 typedef struct
- {
+{
     char title[100];
     char author[100];
     char language[50];
@@ -26,21 +26,22 @@ void displayBooks();
 void sellBooks();
 void updateBooks();
 void salesTrack();
+void deleteBook(); 
 
 // Main function
 int main()
- {
+{
     int choice;
     printf("==== Book Store Management ====\n");
-    
+
     if (!login())
-     {
+    {
         printf("Invalid login! Exiting program...\n");
         return 0;
     }
 
     while (1)
-     {
+    {
         printf("\n==== Main Menu ====\n");
         printf("1. Add Book\n");
         printf("2. Search & Filter Books\n");
@@ -48,26 +49,45 @@ int main()
         printf("4. Sell Books\n");
         printf("5. Update Books\n");
         printf("6. Sales Track\n");
-        printf("7. Log Out\n");
+        printf("7. Delete Book\n"); // New option
+        printf("8. Log Out\n");
         printf("Enter your choice: ");
         scanf("%d", &choice);
 
         switch (choice)
-         {
-            case 1: addBook(); break;
-            case 2: searchBooks(); break;
-            case 3: displayBooks(); break;
-            case 4: sellBooks(); break;
-            case 5: updateBooks(); break;
-            case 6: salesTrack(); break;
-            case 7: printf("Logging out...\n"); return 0;
-            default: printf("Invalid choice! Try again.\n");
+        {
+        case 1:
+            addBook();
+            break;
+        case 2:
+            searchBooks();
+            break;
+        case 3:
+            displayBooks();
+            break;
+        case 4:
+            sellBooks();
+            break;
+        case 5:
+            updateBooks();
+            break;
+        case 6:
+            salesTrack();
+            break;
+        case 7:
+            deleteBook();
+            break; // Calling deleteBook function
+        case 8:
+            printf("Logging out...\n");
+            return 0;
+        default:
+            printf("Invalid choice! Try again.\n");
         }
     }
 }
 
 // Function to perform login
-int login() 
+int login()
 {
     char username[50], password[50];
     printf("LOGIN:\n");
@@ -80,8 +100,9 @@ int login()
 
 // Function to add a book
 void addBook()
- {
-    if (bookCount >= 100) {
+{
+    if (bookCount >= 100)
+    {
         printf("Book inventory is full!\n");
         return;
     }
@@ -107,58 +128,58 @@ void addBook()
     scanf("%f", &newBook.buyPrice);
 
     printf("Sell price: ");
-    scanf("%f",&newBook.sellPrice);
+    scanf("%f", &newBook.sellPrice);
 
     printf("Enter stock quantity: ");
     scanf("%d", &newBook.stockQuantity);
 
-    
     books[bookCount++] = newBook;
     printf("Book added successfully!\n");
 }
 
 // Function to search for books
 void searchBooks()
- {
+{
     char query[100];
     printf("Enter title, author, or category to search: ");
-    getchar(); 
+    getchar(); // Clear newline buffer
     fgets(query, sizeof(query), stdin);
     query[strcspn(query, "\n")] = 0;
 
     printf("Search Results:\n");
-    for (int i = 0; i < bookCount; i++) {
+    for (int i = 0; i < bookCount; i++)
+    {
         if (strstr(books[i].title, query) || strstr(books[i].author, query) || strstr(books[i].category, query))
-         {
-            // printf("%d", i + 1 );
-            printf("Title: %s\n",books[i].title);
-            printf("Author: %s\n",books[i].author);
-            printf("Language: %s\n",books[i].language);
-            printf("Category: %s\n",books[i].category);
-            printf("Sell Price:- %.2f\n",books[i].sellPrice);
+        {
+            printf("Title: %s\n", books[i].title);
+            printf("Author: %s\n", books[i].author);
+            printf("Language: %s\n", books[i].language);
+            printf("Category: %s\n", books[i].category);
+            printf("Sell Price: %.2f\n", books[i].sellPrice);
         }
     }
 }
 
 // Function to display all books
 void displayBooks()
- {
+{
     printf("Book Inventory:\n");
-    for (int i = 0; i < bookCount; i++) {
-        printf("%d.",i + 1);
-             printf("Title: %s\n",books[i].title);
-            printf("Author: %s\n",books[i].author);
-            printf("Language: %s\n",books[i].language);
-            printf("Category: %s\n",books[i].category);
-            printf("Buy Price: %.2f\n",books[i].buyPrice);
-            printf("Sell Price: %.2f\n",books[i].sellPrice);
-            printf("Stock: %d\n",books[i].stockQuantity);
+    for (int i = 0; i < bookCount; i++)
+    {
+        printf("%d.\n", i + 1);
+        printf("Title: %s\n", books[i].title);
+        printf("Author: %s\n", books[i].author);
+        printf("Language: %s\n", books[i].language);
+        printf("Category: %s\n", books[i].category);
+        printf("Buy Price: %.2f\n", books[i].buyPrice);
+        printf("Sell Price: %.2f\n", books[i].sellPrice);
+        printf("Stock: %d\n", books[i].stockQuantity);
     }
 }
 
 // Function to sell books
 void sellBooks()
- {
+{
     char title[100];
     int quantity;
     printf("Enter book title to sell: ");
@@ -166,11 +187,14 @@ void sellBooks()
     fgets(title, sizeof(title), stdin);
     title[strcspn(title, "\n")] = 0;
 
-    for (int i = 0; i < bookCount; i++) {
-        if (strcmp(books[i].title, title) == 0) {
+    for (int i = 0; i < bookCount; i++)
+    {
+        if (strcmp(books[i].title, title) == 0)
+        {
             printf("Enter quantity to sell: ");
             scanf("%d", &quantity);
-            if (quantity > books[i].stockQuantity) {
+            if (quantity > books[i].stockQuantity)
+            {
                 printf("Not enough stock available!\n");
                 return;
             }
@@ -186,17 +210,17 @@ void sellBooks()
 
 // Function to update book quantity
 void updateBooks()
- {
+{
     char title[100];
     int newQuantity;
     printf("Enter book title to update: ");
-    getchar(); // Clear newline buffer
+    getchar(); 
     fgets(title, sizeof(title), stdin);
     title[strcspn(title, "\n")] = 0;
 
-    for (int i = 0; i < bookCount; i++) 
+    for (int i = 0; i < bookCount; i++)
     {
-        if (strcmp(books[i].title, title) == 0) 
+        if (strcmp(books[i].title, title) == 0)
         {
             printf("Enter new stock quantity: ");
             scanf("%d", &newQuantity);
@@ -208,11 +232,34 @@ void updateBooks()
     printf("Book not found!\n");
 }
 
-//Function to track sales
+// Function to track sales
 void salesTrack()
- {
+{
     printf("Total profit: %.2f\n", totalProfit);
-    
 }
 
+// Function to delete a book
+void deleteBook()
+{
+    char title[100];
+    printf("Enter book title to delete: ");
+    getchar();
+    fgets(title, sizeof(title), stdin);
+    title[strcspn(title, "\n")] = 0;
 
+    for (int i = 0; i < bookCount; i++)
+    {
+        if (strcmp(books[i].title, title) == 0)
+        {
+
+            for (int j = i; j < bookCount - 1; j++)
+            {
+                books[j] = books[j + 1];
+            }
+            bookCount--;
+            printf("Book '%s' deleted successfully!\n", title);
+            return;
+        }
+    }
+    printf("Book not found!\n");
+}
