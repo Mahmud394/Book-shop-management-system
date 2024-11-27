@@ -325,6 +325,8 @@ void sellBooks()
 
 
 // Function to track sales
+
+
 void salesTrack()
 {
     printf("\n==== Sales Report ====\n");
@@ -335,33 +337,41 @@ void salesTrack()
         return;
     }
 
-    printf("Title           Quantity Sold    Sell Price    Buy Price    Profit\n");
-    printf("--------------------------------------------------------------------\n");
+    printf("Title           Quantity Sold    Sell Price    Buy Price    Profit_Per_Book\n");
+    printf("-----------------------------------------------------------------------------\n");
 
     float totalSellPrice = 0.0, totalBuyPrice = 0.0, totalProfit = 0.0;
 
+    
     for (int i = 0; i < salesCount; i++)
     {
-        float profit = (sales[i].sellPrice - sales[i].buyPrice) ;
+       
+        float profitPerBook = sales[i].sellPrice - sales[i].buyPrice;
 
+        
         totalSellPrice += sales[i].sellPrice * sales[i].quantitySold;
 
-        totalBuyPrice += sales[i].buyPrice * sales[i].quantitySold;
+        
+        totalProfit += profitPerBook * sales[i].quantitySold;
 
-
+       
         printf("%-15s %-15d %-15.2f %-15.2f %.2f\n",
                sales[i].title, sales[i].quantitySold,
-               sales[i].sellPrice, sales[i].buyPrice, profit);
-
-         totalProfit += profit* sales[i].quantitySold;
+               sales[i].sellPrice, sales[i].buyPrice, profitPerBook);
+    }
+    for (int i = 0; i < bookCount; i++)
+    {
+        totalBuyPrice += (books[i].buyPrice * books[i].stockQuantity)+totalSellPrice; 
     }
 
+    
     printf("--------------------------------------------------------------------\n");
-    printf("Total Buy Price: %.2f\n", totalBuyPrice);
-    printf("Total Sell Price: %.2f\n", totalSellPrice);
-    printf("Total Profit: %.2f\n", totalProfit);
-
+    printf("Total Buy Price: %.2f\n", totalBuyPrice);  
+    printf("Total Sell Price: %.2f\n", totalSellPrice); 
+    printf("Total Profit: %.2f\n", totalProfit); 
 }
+
+
 
 
 
