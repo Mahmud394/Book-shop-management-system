@@ -161,7 +161,7 @@ void saveBooksToFile()
         fprintf(file,"Category: %s\n",books[i].category);
         fprintf(file,"BuyPrice: %.2f\n",books[i].buyPrice);
         fprintf(file,"sellPrice: %.2f\n",books[i].sellPrice);
-        fprintf(file,"stockQuantity: %d\n",books[i].stockQuantity);
+        fprintf(file,"stockQuantity: %d\n\n",books[i].stockQuantity);
     }
 
     fclose(file);
@@ -342,23 +342,25 @@ void salesTrack()
 
     for (int i = 0; i < salesCount; i++)
     {
-        float profit = (sales[i].sellPrice - sales[i].buyPrice) * sales[i].quantitySold;
+        float profit = (sales[i].sellPrice - sales[i].buyPrice) ;
 
         totalSellPrice += sales[i].sellPrice * sales[i].quantitySold;
 
         totalBuyPrice += sales[i].buyPrice * sales[i].quantitySold;
 
-        totalProfit += profit;
 
         printf("%-15s %-15d %-15.2f %-15.2f %.2f\n",
                sales[i].title, sales[i].quantitySold,
                sales[i].sellPrice, sales[i].buyPrice, profit);
+
+         totalProfit += profit* sales[i].quantitySold;
     }
 
     printf("--------------------------------------------------------------------\n");
     printf("Total Buy Price: %.2f\n", totalBuyPrice);
     printf("Total Sell Price: %.2f\n", totalSellPrice);
     printf("Total Profit: %.2f\n", totalProfit);
+
 }
 
 
