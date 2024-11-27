@@ -393,7 +393,7 @@ void updateBooks()
             printf("Enter new stock quantity: ");
             scanf("%d", &newQuantity);
 
-            books[i].stockQuantity = newQuantity;
+            books[i].stockQuantity += newQuantity;
             printf("Updated stock quantity for %s to %d\n", books[i].title, newQuantity);
 
 
@@ -407,11 +407,14 @@ void updateBooks()
 
 
 
+
 // Function to delete a book
 void deleteBook()
 {
     char title[100];
-    printf("Enter book title to delete: ");
+    int quantityToDelete;
+
+    printf("Enter book title to delete or reduce quantity: ");
     getchar();
     fgets(title, sizeof(title), stdin);
     title[strcspn(title, "\n")] = 0;
@@ -420,20 +423,40 @@ void deleteBook()
     {
         if (strcmp(books[i].title, title) == 0)
         {
-            for (int j = i; j < bookCount - 1; j++)
+            printf("Enter quantity to delete (enter -1 to delete the entire book): ");
+            scanf("%d", &quantityToDelete);
+
+            if (quantityToDelete == -1)
             {
-                books[j] = books[j + 1];
+                // Delete the entire book
+                for (int j = i; j < bookCount - 1; j++)
+                {
+                    books[j] = books[j + 1];
+                }
+                bookCount--;
+
+                printf("Book '%s' deleted successfully!\n", title);
+
             }
-            bookCount--;
 
-            printf("Book '%s' deleted successfully!\n", title);
+            else if (quantityToDelete > 0 && quantityToDelete <= books[i].stockQuantity)
+            {
+                // Reduce the stock quantity
+                books[i].stockQuantity -= quantityToDelete;
+                printf("Reduced stock of '%s' by %d. Remaining stock: %d\n", title, quantityToDelete, books[i].stockQuantity);
+                
+            }
 
+            else
+            {
+                printf("Invalid quantity! Ensure it's less than or equal to the current stock.\n");
+            }
 
             saveBooksToFile();
             return;
         }
     }
 
-
     printf("Book not found!\n");
 }
+
