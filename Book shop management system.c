@@ -248,13 +248,13 @@ void BuyReport()
         return;
     }
 
-    float totalBuyCost = 0.0;
+    
 
 
     for (int i = 0; i < bookCount; i++)
     {
         float bookCost = books[i].buyPrice * books[i].stockQuantity;
-        totalBuyCost += bookCost;
+        
 
        
         printf("Title: %s\n",books[i].title);
@@ -263,12 +263,12 @@ void BuyReport()
         printf("Category: %s\n",books[i].category);
         printf("stockQuantity: %d\n",books[i].stockQuantity);
         printf("BuyPrice: %.2f\n",books[i].buyPrice);
-       // printf("bookCost: %.2f\n",bookCost);
+        printf("Total  Buy Cost: %.2f\n", bookCost);
         
         
-    }
+   }
 
-    printf("Total Inventory Buy Cost: %.2f\n", totalBuyCost);
+    
 }
 
 
@@ -377,9 +377,7 @@ void salesTrack()
         return;
     }
 
-    printf("Title           Quantity Sold    Sell Price    Buy Price    Profit_Per_Book\n");
-    printf("-----------------------------------------------------------------------------\n");
-
+    
     float totalSellPrice = 0.0, totalBuyPrice = 0.0, totalProfit = 0.0;
 
     
@@ -395,17 +393,19 @@ void salesTrack()
         totalProfit += profitPerBook * sales[i].quantitySold;
 
        
-        printf("%-15s %-15d %-15.2f %-15.2f %.2f\n",
-               sales[i].title, sales[i].quantitySold,
-               sales[i].sellPrice, sales[i].buyPrice, profitPerBook);
+        printf("Title: %s\n",sales[i].title);
+        printf("Quantity Sold: %d\n",sales[i].quantitySold);
+        printf("Sell Price Per Book: %.2f\n",sales[i].sellPrice);
+        printf("Buy Price Per Book: %.2f\n",sales[i].buyPrice);
+        printf("Profit Per Book: %.2f\n\n",profitPerBook);
     }
+
     for (int i = 0; i < bookCount; i++)
     {
         totalBuyPrice += (books[i].buyPrice * books[i].stockQuantity)+totalSellPrice-totalProfit; 
     }
 
     
-    printf("--------------------------------------------------------------------\n");
     printf("Total Buy Price: %.2f\n", totalBuyPrice);  
     printf("Total Sell Price: %.2f\n", totalSellPrice); 
     printf("Total Profit: %.2f\n", totalProfit); 
