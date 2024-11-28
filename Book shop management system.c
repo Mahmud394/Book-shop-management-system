@@ -42,6 +42,7 @@ void searchBooks();
 void displayBooks();
 void sellBooks();
 void updateBooks();
+void BuyReport();
 void salesTrack();
 void deleteBook();
 void loadBooksFromFile();
@@ -71,9 +72,10 @@ int main()
         printf("3. Display Books\n");
         printf("4. Sell Books\n");
         printf("5. Update Books\n");
-        printf("6. Sales Track\n");
-        printf("7. Delete Book\n");
-        printf("8. Log Out\n");
+        printf("6. Buy Report\n");
+        printf("7. Sales Track\n");
+        printf("8. Delete Book\n");
+        printf("9. Log Out\n");
         printf("Enter your choice: ");
         scanf("%d", &choice);
 
@@ -95,12 +97,15 @@ int main()
             updateBooks();
             break;
         case 6:
+             BuyReport();
+             break;
+        case 7:
             salesTrack();
             break;
-        case 7:
+        case 8:
             deleteBook();
             break;
-        case 8:
+        case 9:
             printf("Logging out...\n");
             saveBooksToFile(); // Save books to file on exit
             return 0;
@@ -229,6 +234,41 @@ void addBook()
 
 
     saveBooksToFile();
+}
+
+
+// Function to generate a detailed Buy Report
+void BuyReport()
+{
+    printf("\n==== Buy Report ====\n");
+
+    if (bookCount == 0)
+    {
+        printf("No books available in the inventory.\n");
+        return;
+    }
+
+    float totalBuyCost = 0.0;
+
+
+    for (int i = 0; i < bookCount; i++)
+    {
+        float bookCost = books[i].buyPrice * books[i].stockQuantity;
+        totalBuyCost += bookCost;
+
+       
+        printf("Title: %s\n",books[i].title);
+        printf("Author: %s\n",books[i].author);
+        printf("Language: %s\n",books[i].language);
+        printf("Category: %s\n",books[i].category);
+        printf("stockQuantity: %d\n",books[i].stockQuantity);
+        printf("BuyPrice: %.2f\n",books[i].buyPrice);
+       // printf("bookCost: %.2f\n",bookCost);
+        
+        
+    }
+
+    printf("Total Inventory Buy Cost: %.2f\n", totalBuyCost);
 }
 
 
@@ -459,4 +499,3 @@ void deleteBook()
 
     printf("Book not found!\n");
 }
-
