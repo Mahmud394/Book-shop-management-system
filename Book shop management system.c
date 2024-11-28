@@ -361,7 +361,7 @@ void salesTrack()
     }
     for (int i = 0; i < bookCount; i++)
     {
-        totalBuyPrice += (books[i].buyPrice * books[i].stockQuantity)+totalSellPrice; 
+        totalBuyPrice += (books[i].buyPrice * books[i].stockQuantity)+totalSellPrice-totalProfit; 
     }
 
     
