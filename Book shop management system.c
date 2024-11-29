@@ -169,8 +169,8 @@ void saveBooksToFile()
         fprintf(file,"Author: %s\n", books[i].author);
         fprintf(file,"language: %s\n",books[i].language);
         fprintf(file,"Category: %s\n",books[i].category);
-        fprintf(file,"BuyPrice: %.2f\n",books[i].buyPrice);
-        fprintf(file,"sellPrice: %.2f\n",books[i].sellPrice);
+        fprintf(file,"BuyPrice: $ %.2f\n",books[i].buyPrice);
+        fprintf(file,"sellPrice: $ %.2f\n",books[i].sellPrice);
         fprintf(file,"stockQuantity: %d\n\n",books[i].stockQuantity);
     }
 
@@ -225,10 +225,10 @@ void addBook()
     fgets(newBook.category, sizeof(newBook.category), stdin);
     newBook.category[strcspn(newBook.category, "\n")] = 0;
 
-    printf("Enter buy price: ");
+    printf("Enter buy price: $ ");
     scanf("%f", &newBook.buyPrice);
 
-    printf("Enter sell price: ");
+    printf("Enter sell price: $ ");
     scanf("%f", &newBook.sellPrice);
 
     printf("Enter stock quantity: ");
@@ -266,7 +266,7 @@ void searchBooks()
             printf("Author: %s\n", books[i].author);
             printf("Language: %s\n", books[i].language);
             printf("Category: %s\n", books[i].category);
-            printf("Sell Price: %.2f\n", books[i].sellPrice);
+            printf("Sell Price: $ %.2f\n", books[i].sellPrice);
         }
     }
 }
@@ -282,8 +282,8 @@ void displayBooks()
         printf("Author: %s\n", books[i].author);
         printf("Language: %s\n", books[i].language);
         printf("Category: %s\n", books[i].category);
-        printf("Buy Price: %.2f\n", books[i].buyPrice);
-        printf("Sell Price: %.2f\n", books[i].sellPrice);
+        printf("Buy Price: $ %.2f\n", books[i].buyPrice);
+        printf("Sell Price: $ %.2f\n", books[i].sellPrice);
         printf("Stock: %d\n", books[i].stockQuantity);
     }
 }
@@ -324,7 +324,7 @@ void sellBooks()
             sales[salesCount].buyPrice = books[i].buyPrice;
             salesCount++;
 
-            printf("Sold %d copies of %s for %.2f.\n", quantity, books[i].title, totalPrice);
+            printf("Sold %d copies of %s for $ %.2f.\n", quantity, books[i].title, totalPrice);
 
             saveBooksToFile();
             return;
@@ -367,9 +367,9 @@ void salesTrack()
        
         printf("Title: %s\n",sales[i].title);
         printf("Quantity Sold: %d\n",sales[i].quantitySold);
-        printf("Sell Price Per Book: %.2f\n",sales[i].sellPrice);
-        printf("Buy Price Per Book: %.2f\n",sales[i].buyPrice);
-        printf("Profit Per Book: %.2f\n\n",profitPerBook);
+        printf("Sell Price Per Book: $ %.2f\n",sales[i].sellPrice);
+        printf("Buy Price Per Book: $ %.2f\n",sales[i].buyPrice);
+        printf("Profit Per Book: $ %.2f\n\n",profitPerBook);
     }
 
     for (int i = 0; i < bookCount; i++)
@@ -378,9 +378,9 @@ void salesTrack()
     }
 
     
-    printf("Total Buy Price: %.2f\n", totalBuyPrice);  
-    printf("Total Sell Price: %.2f\n", totalSellPrice); 
-    printf("Total Profit: %.2f\n", totalProfit); 
+    printf("Total Buy Price: $ %.2f\n", totalBuyPrice);  
+    printf("Total Sell Price: $ %.2f\n", totalSellPrice); 
+    printf("Total Profit: $ %.2f\n", totalProfit); 
 }
 
 
