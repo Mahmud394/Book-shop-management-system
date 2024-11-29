@@ -53,7 +53,7 @@ void saveBooksToFile();
 int main()
 {
     int choice;
-    printf("==== Book Store Management ====\n");
+    printf("==== Book Shop Management System ====\n");
 
     if (!login())
     {
