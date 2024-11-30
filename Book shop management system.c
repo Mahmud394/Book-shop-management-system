@@ -61,6 +61,8 @@ int main()
         return 0;
     }
 
+    printf("Login Successfully\n");
+
     loadBooksFromFile(); // Load books from file on startup
 
     while (1)
