@@ -1,0 +1,43 @@
+.  1.Requirement
+•	Functional Requirements
+1.	Registration & Login
+2.Add Book 
+        1.Book title
+        2.Author name
+        3.Language
+          4.Category
+        5.Buy price
+         6.Stock quantity
+        7.Total price
+3.Search & Filter Books
+        1.Book title
+         2.Author Name
+         3.Category
+          4.Price Range
+4.Display Books
+         1.Book title
+         2.Author name
+         3.Language
+          4.Category
+         4.Sell price
+        5.Stock quantity
+5.Sell Books
+        1.Book Title,
+         2.Quantity
+       3.Total price
+6.Update Books
+	1.Total Quantity
+7.Sales track
+	1.Profit
+	2.Report generation
+8.Log out
+
+•	Non-Functional Requirements
+1.	Usability
+2.	Performance
+3.	Scalability
+4.	Security
+5.	Reliability
+6.	Availability
+2.Design:
+•	Use Case 
